@@ -5,9 +5,9 @@ import java.time.LocalDate;
  * Menyimpan tanggal sewa, tanggal jatuh tempo, dan tanggal kembali.
  */
 public class RentalRecord {
-    private Rentable vehicle;
-    private LocalDate rentDate;     // Tanggal sewa (real-time)
-    private LocalDate dueDate;      // Tanggal jatuh tempo
+    private final Rentable vehicle;
+    private final LocalDate rentDate;     // Tanggal sewa (real-time)
+    private final LocalDate dueDate;      // Tanggal jatuh tempo
     private LocalDate returnDate;   // Tanggal pengembalian (diisi nanti)
     private boolean isReturned;
 

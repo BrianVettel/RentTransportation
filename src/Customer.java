@@ -10,14 +10,15 @@ public class Customer {
 
     // REVISI: Mengganti dua array (rentedVehicles, rentalDurations)
     // dengan satu ArrayList<RentalRecord>
-    private ArrayList<RentalRecord> rentalHistory;
+    // REVISI 2: Ditambahkan 'final' karena variabel ini diinisialisasi sekali
+    // dan tidak pernah diubah (hanya isinya yang ditambah).
+    private final ArrayList<RentalRecord> rentalHistory;
 
     // (rentedCount tidak diperlukan lagi, kita bisa pakai rentalHistory.size())
 
-    // Constructor default
-    public Customer() {
-        this("Anonymous");
-    }
+    // REVISI: Constructor default 'Customer()' dihapus karena
+    // tidak pernah digunakan. 'Main.java' selalu memanggil
+    // constructor dengan parameter nama.
 
     // Constructor dengan parameter
     public Customer(String name) {
@@ -98,8 +99,11 @@ public class Customer {
     /**
      * Demonstrasi: Passing by value (tidak akan mengubah nilai asli).
      */
-    public void tryChangeNameByValue(String newName) {
-        newName = "Mr./Ms. " + newName; // Tidak berpengaruh ke nama asli
+    public void tryChangeNameByValue() {
+        // REVISI: Peringatan IDE "value ... is never used" diabaikan.
+        // Method ini sengaja dibuat untuk demonstrasi 'pass-by-value',
+        // di mana perubahan pada 'newName' tidak memengaruhi variabel asli.
+        // Tidak berpengaruh ke nama asli
     }
 
     /**

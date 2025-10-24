@@ -8,8 +8,8 @@ import java.util.ArrayList; // Import ArrayList
 public class Main {
 
     // Dipindahkan ke static agar bisa dipakai helper method
-    private static Scanner input = new Scanner(System.in);
-    private static RentalSystem rentalSystem = new RentalSystem();
+    private static final Scanner input = new Scanner(System.in);
+    private static final RentalSystem rentalSystem = new RentalSystem();
     private static Customer customer;
 
     public static void main(String[] args) {
@@ -59,8 +59,7 @@ public class Main {
 
 
         // 8. Demonstrasi Passing by Value (Tidak perlu diubah)
-        String originalName = customer.getName();
-        customer.tryChangeNameByValue(originalName);
+        customer.tryChangeNameByValue();
         System.out.println("\nNama setelah tryChangeNameByValue (tidak berubah): " + customer.getName());
 
         // 9. Demonstrasi Passing by Reference (Tidak perlu diubah)

@@ -7,7 +7,9 @@ import java.time.LocalDate; // <-- 1. IMPORT BARU yang wajib ada
  */
 public class RentalSystem {
     // Menggunakan ArrayList untuk menyimpan kendaraan secara fleksibel
-    private ArrayList<Rentable> vehicles;
+    // REVISI: Ditambahkan 'final' sesuai saran IDE
+    //
+    private final ArrayList<Rentable> vehicles;
 
     // Constructor (Tidak berubah)
     public RentalSystem() {
@@ -52,17 +54,7 @@ public class RentalSystem {
         return null;
     }
 
-    /**
-     * Menampilkan semua kendaraan, baik yang tersedia maupun tidak.
-     * (Tidak perlu diubah)
-     */
-    public void showAllVehicles() {
-        System.out.println("\n--- Semua Kendaraan dalam Sistem ---");
-        for (int i = 0; i < vehicles.size(); i++) {
-            System.out.print((i + 1) + ". ");
-            vehicles.get(i).displayInfo();
-        }
-    }
+    // public void showAllVehicles() { ... }
 
     /**
      * Menambahkan kendaraan baru ke sistem secara dinamis.
@@ -74,48 +66,51 @@ public class RentalSystem {
 
     /**
      * REVISI REAL-TIME: Method LOGIKA UTAMA untuk memproses penyewaan.
-     * Sekarang membuat objek RentalRecord menggunakan tanggal real-time.
+     * <p>
+     * REVISI 2: Method diubah dari 'boolean processRental'
+     * menjadi 'void processRental' karena nilai return-nya
+     * tidak pernah digunakan di Main.java.
      *
      * @param customer Pelanggan yang menyewa
      * @param vehicle Kendaraan yang disewa
      * @param duration Durasi sewa
-     * @return true jika berhasil, false jika gagal
      */
-    public boolean processRental(Customer customer, Rentable vehicle, int duration) {
+    public void processRental(Customer customer, Rentable vehicle, int duration) {
         // 1. Coba sewa kendaraan (Update stok)
-        if (vehicle.rent()) {
-
-            // --- REVISI UTAMA ADA DI SINI ---
-
-            // 2. Ambil tanggal hari ini (Real-Time)
-            LocalDate rentDate = LocalDate.now();
-
-            // 3. Buat catatan sewa (RentalRecord)
-            RentalRecord record = new RentalRecord(vehicle, rentDate, duration);
-
-            // 4. Panggil method BARU di Customer (addRentalRecord)
-            //    Bukan lagi addRentedVehicle(vehicle, duration)
-            customer.addRentalRecord(record);
-
-            // --- SELESAI REVISI ---
-
-            // 5. Berikan pesan sukses yang lebih informatif
-            System.out.println(vehicle.getClass().getSimpleName() +
-                    " berhasil disewa oleh " + customer.getName() +
-                    "\n  Mulai tanggal: " + record.getRentDate() +
-                    "\n  Jatuh tempo : " + record.getDueDate());
-            return true;
-        } else {
-            // Gagal sewa (pesan error sudah dicetak oleh vehicle.rent())
-            return false;
+        // REVISI: Logika diubah sedikit. Jika GAGAL,
+        // cetak pesan (sudah di .rent()) dan langsung keluar.
+        if (!vehicle.rent()) {
+            return; // Gagal sewa, method selesai
         }
+
+        // --- Jika Berhasil ---
+
+        // 2. Ambil tanggal hari ini (Real-Time)
+        LocalDate rentDate = LocalDate.now();
+
+        // 3. Buat catatan sewa (RentalRecord)
+        RentalRecord record = new RentalRecord(vehicle, rentDate, duration);
+
+        // 4. Panggil method BARU di Customer (addRentalRecord)
+        customer.addRentalRecord(record);
+
+        // 5. Berikan pesan sukses yang lebih informatif
+        System.out.println(vehicle.getClass().getSimpleName() +
+                " berhasil disewa oleh " + customer.getName() +
+                "\n  Mulai tanggal: " + record.getRentDate() +
+                "\n  Jatuh tempo : " + record.getDueDate());
+
+        // REVISI: 'return true;' dan
+        // 'return false;' dihapus
+        // karena method sekarang void.
     }
 
 
-    // Getter untuk semua kendaraan (Tidak berubah)
-    public ArrayList<Rentable> getVehicles() {
-        return vehicles;
-    }
+    /**
+     * REVISI: Method 'getVehicles()' dihapus
+     * karena tidak pernah digunakan.
+     */
+    // public ArrayList<Rentable> getVehicles() { ... }
 
     // Menampilkan total kendaraan (static method) (Tidak berubah)
     public void showTotalCreated() {

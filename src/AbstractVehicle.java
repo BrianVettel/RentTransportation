@@ -9,11 +9,10 @@ public abstract class AbstractVehicle implements Rentable {
     protected static int totalVehicles = 0;
 
     // --- Constructor Default ---
-    public AbstractVehicle() {
-        this("Unknown", "Unknown", 0.0, 0); // panggil constructor berparameter
-    }
-
+    // REVISI: Constructor ini dihapus karena tidak pernah digunakan.
+    //
     // --- Constructor dengan Parameter ---
+    // (Ini adalah constructor satu-satunya yang digunakan oleh subclass)
     public AbstractVehicle(String type, String brand, double pricePerDay, int stock) {
         this.type = type;
         this.brand = brand;
@@ -23,9 +22,9 @@ public abstract class AbstractVehicle implements Rentable {
     }
 
     // --- Getter ---
-    public String getType() {
-        return type;
-    }
+    // REVISI: Method getType()
+    // dan getStock() dihapus
+    // karena tidak pernah dipanggil dari luar class.
 
     public String getBrand() {
         return brand;
@@ -35,25 +34,21 @@ public abstract class AbstractVehicle implements Rentable {
         return pricePerDay;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
     // --- Setter ---
-    public void setPricePerDay(double pricePerDay) {
-        this.pricePerDay = pricePerDay;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
+    // REVISI: Method setPricePerDay()
+    // dan setStock() dihapus
+    // karena tidak pernah digunakan.
 
     // --- Implementasi Method dari Interface Rentable ---
 
     // Menampilkan informasi kendaraan
     @Override
     public void displayInfo() {
-        System.out.println(type + " - " + brand + " | Rp" + pricePerDay + "/hari | Stok: " + stock);
+        // REVISI: Method getCapacity()
+        // sekarang dipanggil di sini agar terpakai.
+        System.out.println(type + " - " + brand +
+                " | Kapasitas: " + getCapacity() + " org" +
+                " | Rp" + pricePerDay + "/hari | Stok: " + stock);
     }
 
     // Mengecek apakah kendaraan tersedia
@@ -92,6 +87,7 @@ public abstract class AbstractVehicle implements Rentable {
     }
 
     // Method abstract ini tetap ada untuk diimplementasikan oleh subclass
+    // dan sekarang sudah dipanggil di displayInfo()
     public abstract int getCapacity();
 
 }
