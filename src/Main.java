@@ -25,7 +25,7 @@ public class Main {
         // --- REVISI: MAIN MENU ---
         int menuPilihan;
         while (true) {
-            System.out.println("\n--- MAIN MENU ---");
+            System.out.println("--- MAIN MENU ---");
             System.out.println("Pelanggan: " + customer.getName());
             System.out.println("1. Sewa Kendaraan");
             System.out.println("2. Kembalikan Kendaraan");
