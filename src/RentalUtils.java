@@ -9,7 +9,7 @@ public class RentalUtils {
     private static final int DENDA_PER_HARI = 25000;
 
     /**
-     * REVISI: Menghitung biaya berdasarkan durasi sewa aktual (real-time).
+     
      * @param durationInDays durasi aktual dalam hari (long)
      * @param pricePerDay harga sewa
      */
